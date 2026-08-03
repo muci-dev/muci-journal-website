@@ -1041,16 +1041,28 @@ class Component extends DCLogic {
     home: '/', marketing: '/marketing', explorer: '/explorer', maker: '/maker', vibe: '/vibe',
     journal: '/journal', marketer: '/about', contact: '/contact', privacy: '/privacy', terms: '/terms'
   };
+  basePath() {
+    try {
+      const p = new URL(document.baseURI).pathname;
+      return p.endsWith('/') ? p.slice(0, -1) : p;
+    } catch (e) {
+      return '';
+    }
+  }
   pathForState(page, journalOpen) {
+    const base = this.basePath();
     if (page === 'journal' && journalOpen != null) {
       const entries = (this.T.en.journal.entries) || [];
       const entry = entries[journalOpen];
-      return entry ? '/journal/' + entry.id : '/journal';
+      return base + (entry ? '/journal/' + entry.id : '/journal');
     }
-    return this.PATHS[page] || '/';
+    return base + (this.PATHS[page] || '/');
   }
   stateForPath(pathname) {
-    const clean = (pathname || '/').replace(/\/+$/, '') || '/';
+    const base = this.basePath();
+    let raw = pathname || '/';
+    if (base && raw.indexOf(base) === 0) raw = raw.slice(base.length) || '/';
+    const clean = raw.replace(/\/+$/, '') || '/';
     if (clean === '/') return { page: 'home', journalOpen: null };
     const journalMatch = clean.match(/^\/journal\/([^/]+)$/);
     if (journalMatch) {
