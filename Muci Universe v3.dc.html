@@ -252,21 +252,21 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
               <span style="font-size:18px; font-weight:600; color:#141414">{{ t.home.aboutLink }}</span>
             </div>
-            <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#6f6e68">→</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:24px; font-weight:600; color:#141414">→</span>
           </div>
           <div onClick="{{ goJournal }}" style="cursor:pointer; display:flex; justify-content:space-between; align-items:center; border:1px solid #e6e4dd; border-radius:18px; padding:22px 28px; background:#fffefb; transition: transform .35s" style-hover="transform: translateY(-3px); border-color: #141414">
             <div style="display:flex; align-items:center; gap:14px">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"></path><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"></path></svg>
               <span style="font-size:18px; font-weight:600; color:#141414">{{ t.home.journalLink }}</span>
             </div>
-            <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#6f6e68">→</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:24px; font-weight:600; color:#141414">→</span>
           </div>
           <div onClick="{{ goContact }}" style="cursor:pointer; display:flex; justify-content:space-between; align-items:center; border:1px solid #e6e4dd; border-radius:18px; padding:22px 28px; background:#fffefb; transition: transform .35s" style-hover="transform: translateY(-3px); border-color: #141414">
             <div style="display:flex; align-items:center; gap:14px">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg>
               <span style="font-size:18px; font-weight:600; color:#141414">{{ t.home.contactLink }}</span>
             </div>
-            <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#6f6e68">→</span>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:24px; font-weight:600; color:#141414">→</span>
           </div>
         </div>
 
@@ -291,7 +291,7 @@
           </div>
           <div style="position:relative">
             <div style="aspect-ratio:4/5; border-radius:26px; overflow:hidden; box-shadow:0 30px 70px rgba(20,20,20,0.16)">
-              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="muci-portrait" shape="rect" fit="cover" placeholder="{{ t.marketer.portraitHint }}" hint-size="100%,100%" style="width:100%;height:100%"></x-import>
+              <img src="./assets/about-web.jpg" alt="{{ t.marketer.portraitHint }}" style="width:100%; height:100%; object-fit:cover; object-position:50% 40%; display:block" />
             </div>
             <div style="position:absolute; left:-12px; bottom:22px; background:#059669; color:#fffefb; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; border-radius:999px; padding:9px 16px; box-shadow:0 12px 26px rgba(5,150,105,0.35)">{{ t.marketer.badge }}</div>
           </div>
@@ -330,8 +330,13 @@
             <sc-for list="{{ teamCards }}" as="c" hint-placeholder-count="10">
               <div onClick="{{ c.go }}" style="{{ c.style }}">
                 <div style="border-radius:22px; overflow:hidden; border:1px solid {{ c.cardBorder }}; background:{{ c.cardBg }}; color:{{ c.cardFg }}; box-shadow:0 22px 50px rgba(20,20,20,0.16)">
-                  <div style="aspect-ratio:1/1; background:#e8e6dd">
-                    <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ c.id }}" shape="rect" fit="cover" placeholder="{{ c.name }}" hint-size="236px,236px" style="width:100%;height:100%"></x-import>
+                  <div style="aspect-ratio:1/1; background:#e8e6dd; overflow:hidden">
+                    <sc-if value="{{ c.photo }}" hint-placeholder-val="{{ false }}">
+                      <img src="{{ c.photo }}" alt="{{ c.name }}" style="width:100%; height:100%; object-fit:cover; display:block" />
+                    </sc-if>
+                    <sc-if value="{{ !c.photo }}" hint-placeholder-val="{{ true }}">
+                      <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ c.id }}" shape="rect" fit="cover" placeholder="{{ c.name }}" hint-size="236px,236px" style="width:100%;height:100%"></x-import>
+                    </sc-if>
                   </div>
                   <div style="padding:18px 20px 20px">
                     <div style="font-size:19px; font-weight:600; letter-spacing:-0.01em">{{ c.name }}</div>
@@ -458,8 +463,21 @@
           <div style="margin-top:40px; display:flex; flex-direction:column; gap:72px">
             <sc-for list="{{ t.explorer.chapters }}" as="ch" hint-placeholder-count="7">
               <div class="r-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center">
-                <div data-reveal="0" data-reveal-x="-28" style="height:360px">
-                  <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ ch.img }}" shape="rounded" radius="20" placeholder="{{ ch.imgHint }}" hint-size="100%,360px" style="width:100%;height:360px"></x-import>
+                <div data-reveal="0" data-reveal-x="-28" style="height:{{ ch.imgHeight }}; border-radius:20px; overflow:hidden; background:#faf9f5">
+                  <sc-if value="{{ ch.photo }}" hint-placeholder-val="{{ false }}">
+                    <img src="{{ ch.photo }}" alt="{{ ch.imgHint }}" style="width:100%; height:100%; object-fit:cover; object-position:{{ ch.photoPos }}; display:block" />
+                  </sc-if>
+                  <sc-if value="{{ !ch.photo }}" hint-placeholder-val="{{ true }}">
+                    <div style="position:relative; width:100%; height:100%; overflow:hidden; background:#20202b">
+                      <div style="position:absolute; inset:0; pointer-events:none; overflow:hidden; perspective:520px; perspective-origin:50% 0%">
+                        <div style="position:absolute; left:-20%; right:-20%; top:-135%; bottom:-40%; transform:rotateX(60deg); background:#2a2a38">
+                          <div style="position:absolute; inset:0; background-image:repeating-linear-gradient(180deg, #f4f2ea 0 44px, transparent 44px 132px); background-size:16px 132px; background-position:50% 0; background-repeat:repeat-y; animation:roadRun 1.05s linear infinite"></div>
+                          <div style="position:absolute; top:0; bottom:0; left:26%; width:6px; background:#4a4a56"></div>
+                          <div style="position:absolute; top:0; bottom:0; right:26%; width:6px; background:#4a4a56"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </sc-if>
                 </div>
                 <div data-reveal="120" data-reveal-x="28">
                   <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px">
@@ -514,9 +532,9 @@
         <p style="margin:24px 0 0; max-width:620px; font-size:19px; line-height:1.65; color:#55544e; text-wrap:pretty">{{ t.maker.intro }}</p>
 
         <div data-reveal="0" style="margin-top:52px; display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px">
-          <div style="aspect-ratio:16/10"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="maker-hero" shape="rounded" radius="20" placeholder="Helmet" hint-size="100%,100%" style="width:100%;height:100%"></x-import></div>
-          <div style="aspect-ratio:16/10"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="maker-g1" shape="rounded" radius="20" placeholder="Print" hint-size="100%,100%" style="width:100%;height:100%"></x-import></div>
-          <div style="aspect-ratio:16/10"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="maker-g2" shape="rounded" radius="20" placeholder="Paint" hint-size="100%,100%" style="width:100%;height:100%"></x-import></div>
+          <div style="aspect-ratio:16/10; border-radius:20px; overflow:hidden"><img src="./assets/helmet-web.jpg" alt="Helmet" style="width:100%;height:100%;object-fit:cover;object-position:55% 62%;display:block"/></div>
+          <div style="aspect-ratio:16/10; border-radius:20px; overflow:hidden"><img src="./assets/orcateam-web.jpg" alt="Print" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block"/></div>
+          <div style="aspect-ratio:16/10; border-radius:20px; overflow:hidden"><img src="./assets/orca3-web.jpg" alt="Paint" style="width:100%;height:100%;object-fit:cover;object-position:40% 45%;display:block"/></div>
         </div>
 
         <div style="margin-top:68px; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px">
@@ -533,8 +551,13 @@
         <div style="margin-top:26px; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px">
           <sc-for list="{{ t.maker.projects }}" as="pr" hint-placeholder-count="4">
             <div data-reveal="0" style="border:1px solid #e6e4dd; border-radius:22px; overflow:hidden; background:#fffefb; transition:border-color .3s, transform .3s" style-hover="border-color: #7c3aed; transform: translateY(-4px)">
-              <div style="aspect-ratio:4/3">
-                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ pr.img }}" shape="rect" placeholder="{{ pr.imgHint }}" hint-size="100%,100%" style="width:100%;height:100%"></x-import>
+              <div style="aspect-ratio:4/3; overflow:hidden">
+                <sc-if value="{{ pr.photo }}" hint-placeholder-val="{{ false }}">
+                  <img src="{{ pr.photo }}" alt="{{ pr.title }}" style="width:100%; height:100%; object-fit:cover; object-position:{{ pr.photoPos }}; display:block" />
+                </sc-if>
+                <sc-if value="{{ !pr.photo }}" hint-placeholder-val="{{ true }}">
+                  <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ pr.img }}" shape="rect" placeholder="{{ pr.imgHint }}" hint-size="100%,100%" style="width:100%;height:100%"></x-import>
+                </sc-if>
               </div>
               <div style="padding:24px">
                 <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.14em; color:#7c3aed; text-transform:uppercase; margin-bottom:8px">{{ pr.tag }}</div>
@@ -546,8 +569,8 @@
         </div>
 
         <div data-reveal="0" style="margin-top:24px; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px">
-          <div style="aspect-ratio:3/2"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="maker-g3" shape="rounded" radius="18" placeholder="Detail" hint-size="100%,100%" style="width:100%;height:100%"></x-import></div>
-          <div style="aspect-ratio:3/2"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="maker-g4" shape="rounded" radius="18" placeholder="Worn" hint-size="100%,100%" style="width:100%;height:100%"></x-import></div>
+          <div style="aspect-ratio:3/2; border-radius:18px; overflow:hidden"><img src="./assets/orca4-web.jpg" alt="Detail" style="width:100%;height:100%;object-fit:cover;object-position:52% 40%;display:block"/></div>
+          <div style="aspect-ratio:3/2; border-radius:18px; overflow:hidden"><img src="./assets/orca1-web.jpg" alt="Worn" style="width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block"/></div>
         </div>
         <div class="r-cta" data-reveal="0" onClick="{{ goVibe }}" style="cursor:pointer; margin-top:56px; display:flex; align-items:center; justify-content:space-between; gap:24px; border-radius:24px; padding:38px 44px; background:#141414; color:#f7f6f2; transition:transform .3s" style-hover="transform: translateY(-3px)">
           <div>
@@ -659,10 +682,8 @@
               <h2 style="margin:0; font-size:clamp(26px,3.2vw,36px); font-weight:600; letter-spacing:-0.025em; text-wrap:pretty">{{ t.vibe.aiOps.title }}</h2>
               <p style="margin:16px 0 0; font-size:16px; line-height:1.75; color:#c9c7bf; text-wrap:pretty">{{ t.vibe.aiOps.body }}</p>
             </div>
-            <div style="height:260px; display:flex; align-items:center; justify-content:center; border-radius:18px; background:#161620; border:1px solid #26262b">
-              <div style="width:160px; height:160px">
-                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="vibe-claude-logo" shape="rounded" radius="20" fit="contain" placeholder="Claude logo" hint-size="160px,160px" style="width:100%;height:100%"></x-import>
-              </div>
+            <div style="height:260px; border-radius:18px; overflow:hidden; background:#161620; border:1px solid #26262b">
+              <img src="./assets/ai-team-web.jpg" alt="AI agents at work" style="width:100%;height:100%;object-fit:cover;object-position:35% 55%;display:block"/>
             </div>
           </div>
           <div style="margin-top:16px; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px">
@@ -717,7 +738,7 @@
         </div>
 
         <div style="margin-top:20px; display:flex; flex-direction:column">
-          <sc-for list="{{ t.journal.entries }}" as="e" hint-placeholder-count="4">
+          <sc-for list="{{ t.journal.entries }}" as="e" hint-placeholder-count="1">
             <div onClick="{{ e.open }}" class="r-entry" style="display:grid; grid-template-columns:1fr 190px; gap:28px; align-items:center; padding:32px 0; border-top:1px solid #e6e4dd; cursor:pointer; transition:opacity .3s" style-hover="opacity: 0.75">
               <div>
                 <div style="display:flex; gap:14px; align-items:center; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.12em">
@@ -728,8 +749,13 @@
                 <p style="margin:10px 0 12px; font-size:15px; line-height:1.65; color:#6f6e68; text-wrap:pretty">{{ e.excerpt }}</p>
                 <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#141414">{{ t.journal.readMore }} →</span>
               </div>
-              <div style="height:130px">
-                <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ e.img }}" shape="rounded" radius="14" placeholder="Photo" hint-size="190px,130px" style="width:100%;height:130px"></x-import>
+              <div style="height:130px; border-radius:14px; overflow:hidden">
+                <sc-if value="{{ e.photo }}" hint-placeholder-val="{{ false }}">
+                  <img src="{{ e.photo }}" alt="{{ e.photoAlt }}" style="width:100%; height:100%; object-fit:cover; object-position:{{ e.photoPos }}; display:block" />
+                </sc-if>
+                <sc-if value="{{ !e.photo }}" hint-placeholder-val="{{ true }}">
+                  <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ e.img }}" shape="rounded" radius="14" placeholder="Photo" hint-size="190px,130px" style="width:100%;height:130px"></x-import>
+                </sc-if>
               </div>
             </div>
           </sc-for>
@@ -756,7 +782,7 @@
 
         <div style="margin-top:28px; padding-top:22px; border-top:1px solid #e6e4dd; display:flex; align-items:center; gap:14px">
           <div style="width:46px; height:46px; flex:none; border-radius:50%; overflow:hidden; border:1px solid #e6e4dd">
-            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="author-avatar" shape="circle" placeholder="Muci" hint-size="46px,46px" style="width:100%;height:100%"></x-import>
+            <img src="./assets/author-web.jpg" alt="Muci" style="width:100%;height:100%;object-fit:cover;display:block"/>
           </div>
           <div>
             <div style="font-size:15px; font-weight:600; color:#141414">{{ t.journal.authorName }}</div>
@@ -764,8 +790,13 @@
           </div>
         </div>
 
-        <div style="margin-top:36px; width:100%; height:420px">
-          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ openEntry.hero }}" shape="rounded" radius="22" placeholder="Cover photo" hint-size="100%,420px" style="width:100%;height:420px"></x-import>
+        <div style="margin-top:36px; width:100%; height:420px; border-radius:22px; overflow:hidden">
+          <sc-if value="{{ openEntry.photo }}" hint-placeholder-val="{{ false }}">
+            <img src="{{ openEntry.photo }}" alt="{{ openEntry.photoAlt }}" style="width:100%; height:100%; object-fit:cover; object-position:{{ openEntry.photoPos }}; display:block" />
+          </sc-if>
+          <sc-if value="{{ !openEntry.photo }}" hint-placeholder-val="{{ true }}">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ openEntry.hero }}" shape="rounded" radius="22" placeholder="Cover photo" hint-size="100%,420px" style="width:100%;height:420px"></x-import>
+          </sc-if>
         </div>
 
         <div style="margin-top:48px; display:flex; flex-direction:column; gap:30px">
@@ -802,7 +833,7 @@
 
         <div style="margin-top:52px; padding-top:32px; border-top:1px solid #e6e4dd; display:flex; align-items:center; gap:16px">
           <div style="width:56px; height:56px; flex:none; border-radius:50%; overflow:hidden; border:1px solid #e6e4dd">
-            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="author-avatar-foot" shape="circle" placeholder="Muci" hint-size="56px,56px" style="width:100%;height:100%"></x-import>
+            <img src="./assets/author-web.jpg" alt="Muci" style="width:100%;height:100%;object-fit:cover;display:block"/>
           </div>
           <div style="flex:1">
             <div style="font-size:16px; font-weight:600; color:#141414">{{ t.journal.authorName }}</div>
@@ -1114,16 +1145,16 @@ class Component extends DCLogic {
         teamTitle: 'I don\'t do it alone.',
         teamIntro: 'Behind almost every project is a crew I trust. These are the people I build, ship and scale with.',
         team: [
-          { id: 'team-1', name: 'Full Name', role: 'Role / title', company: 'Company' },
-          { id: 'team-2', name: 'Full Name', role: 'Role / title', company: 'Company' },
-          { id: 'team-3', name: 'Full Name', role: 'Role / title', company: 'Company' },
-          { id: 'team-4', name: 'Full Name', role: 'Role / title', company: 'Company' },
-          { id: 'team-5', name: 'Full Name', role: 'Role / title', company: 'Company' },
-          { id: 'team-6', name: 'Full Name', role: 'Role / title', company: 'Company' },
-          { id: 'team-7', name: 'Full Name', role: 'Role / title', company: 'Company' },
-          { id: 'team-8', name: 'Full Name', role: 'Role / title', company: 'Company' },
-          { id: 'team-9', name: 'Full Name', role: 'Role / title', company: 'Company' },
-          { id: 'team-10', name: 'Full Name', role: 'Role / title', company: 'Company' }
+          { id: 'team-1', photo: './assets/team-arifcan-web.jpg', name: 'Arifcan', role: '3D Print Expert', company: 'Orca 3D Hub' },
+          { id: 'team-2', photo: './assets/team-hasan-web.jpg', name: 'Hasan', role: 'Architect', company: 'Siesta Architects' },
+          { id: 'team-3', photo: './assets/team-eren-web.jpg', name: 'Eren', role: 'Digital Marketer', company: 'Turnalar' },
+          { id: 'team-4', photo: './assets/team-efekan-web.jpg', name: 'Efekan', role: 'Marketer', company: 'SEM' },
+          { id: 'team-5', photo: './assets/team-can-web.jpg', name: 'Can', role: 'Data Analyst', company: 'SEM' },
+          { id: 'team-6', photo: './assets/team-safa-web.jpg', name: 'Safa', role: 'Trader', company: 'Eflani Flour Mills' },
+          { id: 'team-7', photo: './assets/team-alper-web.jpg', name: 'Alper', role: 'SEO Expert', company: 'Mersenne Minds' },
+          { id: 'team-8', photo: './assets/team-emma-web.jpg', name: 'Emma', role: 'Business Development', company: 'B Futurist' },
+          { id: 'team-9', photo: './assets/team-demiray-web.jpg', name: 'Demiray', role: 'Digital Print', company: 'Trend Mecra' },
+          { id: 'team-10', photo: './assets/team-gokselin-web.jpg', name: 'Gokselin', role: 'Production', company: 'Huug Studio' }
         ],
         did: [
           { no: '01', title: 'I founded Datalyst', body: 'Built a marketing agency in Toronto and scaled it to manage 7-figure clients across e-commerce and B2B.' },
@@ -1187,18 +1218,18 @@ class Component extends DCLogic {
         heroCaption3: 'KOH TAO, THAILAND',
         filmTitle: 'THE JOURNEY, IN CHAPTERS',
         chapters: [
-          { no: '01', era: 'Istanbul · the beginning', title: 'A kid who couldn\'t sit still', body: 'It starts in Istanbul, a city that never lets you get comfortable. I grew up curious to a fault, always more interested in what was around the next corner than in staying put. That restlessness never left. It just found bigger corners.', img: 'exp-ch1', imgHint: 'Istanbul, early years', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' },
-          { no: '02', era: 'Marmara University', title: 'Learning the map before leaving it', body: 'University gave me the language of markets and business, but the real education was realizing how much of the world I hadn\'t seen. I graduated knowing two things: I understood how growth worked, and I was not going to learn the rest of it from a desk.', img: 'exp-ch2', imgHint: 'Graduation', cols: '1fr 1fr', imgCol: '2', txtCol: '1', imgX: '28', txtX: '-28' },
-          { no: '03', era: 'USA · Work & Travel', title: 'First border, first horizon', body: 'Work and Travel took me across the United States for the first time. Different cities, different markets, all of it moving fast. I came back understanding something simple: you learn a place infinitely faster when you\'re inside it than when you\'re reading about it.', img: 'exp-ch3', imgHint: 'Crossing the USA', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' },
-          { no: '04', era: 'Canada · the leap', title: 'Leaving for good', body: 'Then came the real leap: packing up my two cats and moving with them to Canada. I studied, worked, and built a company from nothing in Toronto. It was the first time home was somewhere I chose rather than somewhere I was from, and those years also gave me a few more reasons to cross back into the US along the way.', img: 'exp-ch4', imgHint: 'Canada / Toronto', cols: '1fr 1fr', imgCol: '2', txtCol: '1', imgX: '28', txtX: '-28' },
-          { no: '05', era: 'Asia · the nomad era', title: 'Home is wherever the work runs', body: 'Thailand, Vietnam, the UAE. I ran an agency from cafés, airport lounges and roadside stops, riding between them whenever I could. Vietnam I crossed end to end. It proved the thing I\'d always suspected, the work travels, and so can you.', img: 'exp-ch5', imgHint: 'Southeast Asia', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' },
-          { no: '06', era: 'Netherlands · now', title: 'Rotterdam, and what runs behind the work', body: 'These days the base is Rotterdam, flatter roads, harder wind, calmer water for the paddleboard on weekends. The real shift has been out of sight: going deeper into B2B dynamics and building the automation that lets the work run without me touching every task by hand.', img: 'exp-ch6', imgHint: 'The Netherlands', cols: '1fr 1fr', imgCol: '2', txtCol: '1', imgX: '28', txtX: '-28' },
-          { no: '07', era: 'Istanbul · for now', title: 'Home base, until the next one', body: 'Right now I\'m back in Istanbul, running marketing consulting and the maker side of things from here this year. It\'s not a permanent return, just the base until the next milestone points somewhere else.', img: 'exp-ch7', imgHint: 'Istanbul, right now', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' }
+          { no: '01', era: 'Istanbul · the beginning', title: 'A kid who couldn\'t sit still', body: 'It starts in Istanbul, a city that never lets you get comfortable. I grew up curious to a fault, always more interested in what was around the next corner than in staying put. That restlessness never left. It just found bigger corners.', img: 'exp-ch1', imgHeight: '360px', photo: './assets/istanbul-beginning-web.jpg', photoPos: '50% 30%', imgHint: 'Istanbul, early years', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' },
+          { no: '02', era: 'Marmara University', title: 'Learning the map before leaving it', body: 'University gave me the language of markets and business, but the real education was realizing how much of the world I hadn\'t seen. I graduated knowing two things: I understood how growth worked, and I was not going to learn the rest of it from a desk.', img: 'exp-ch2', imgHeight: '360px', photo: './assets/marmara-web.jpg', photoPos: '45% 25%', imgHint: 'Graduation', cols: '1fr 1fr', imgCol: '2', txtCol: '1', imgX: '28', txtX: '-28' },
+          { no: '03', era: 'USA · Work & Travel', title: 'First border, first horizon', body: 'Work and Travel took me across the United States for the first time. Different cities, different markets, all of it moving fast. I came back understanding something simple: you learn a place infinitely faster when you\'re inside it than when you\'re reading about it.', img: 'exp-ch3', imgHeight: '360px', photo: './assets/workandtravel-web.jpg', photoPos: '68% 30%', imgHint: 'Crossing the USA', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' },
+          { no: '04', era: 'Canada · the leap', title: 'Leaving for good', body: 'Then came the real leap: packing up my two cats and moving with them to Canada. I studied, worked, and built a company from nothing in Toronto. It was the first time home was somewhere I chose rather than somewhere I was from, and those years also gave me a few more reasons to cross back into the US along the way.', img: 'exp-ch4', imgHeight: '360px', photo: './assets/canada-web.jpg', photoPos: '50% 46%', imgHint: 'Canada / Toronto', cols: '1fr 1fr', imgCol: '2', txtCol: '1', imgX: '28', txtX: '-28' },
+          { no: '05', era: 'Asia · the nomad era', title: 'Home is wherever the work runs', body: 'Thailand, Vietnam, the UAE. I ran an agency from cafés, airport lounges and roadside stops, riding between them whenever I could. Vietnam I crossed end to end. It proved the thing I\'d always suspected, the work travels, and so can you.', img: 'exp-ch5', imgHeight: '360px', photo: './assets/asia-web.jpg', photoPos: '50% 62%', imgHint: 'Southeast Asia', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' },
+          { no: '06', era: 'Netherlands · now', title: 'Rotterdam, and what runs behind the work', body: 'I moved to Rotterdam at the end of 2025: flatter streets, harder wind, weekends for running and biking. The job also gave me a reason to see Europe, short trips across Germany, Belgium, Greece and the Netherlands. The real shift was out of sight, going deeper into B2B and building the automation that runs the work without me touching every task.', img: 'exp-ch6', imgHeight: '360px', photo: './assets/rotterdam-explore-web.jpg', photoPos: '58% 42%', imgHint: 'The Netherlands', cols: '1fr 1fr', imgCol: '2', txtCol: '1', imgX: '28', txtX: '-28' },
+          { no: '07', era: 'Istanbul', title: 'Home base, until the next one', body: 'Right now I\'m back in Istanbul, running marketing consulting and the maker side of things from here this year. It\'s not a permanent return, just the base until the next milestone points somewhere else.', img: 'exp-ch7', imgHeight: '360px', imgHint: 'Getting ready for the next one', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' }
         ],
         mileageTitle: 'THE MILEAGE',
         rides: [
           { stat: '40+', place: 'Türkiye', unit: 'provinces' },
-          { stat: '25+', place: 'USA', unit: 'states' },
+          { stat: '25+', place: 'USA', unit: 'provinces' },
           { stat: '10+', place: 'Canada', unit: 'provinces' },
           { stat: '7', place: 'Europe', unit: 'countries' },
           { stat: '5', place: 'Thailand', unit: 'regions' },
@@ -1218,9 +1249,9 @@ class Component extends DCLogic {
         ],
         projectsTitle: 'WHAT I MAKE',
         projects: [
-          { img: 'maker-p1', tag: 'PROPS', title: 'Replica Helmets', body: 'Screen-accurate replica helmets, printed and painted to look and wear like the real thing.' },
-          { img: 'maker-p2', tag: 'SCAN → PRINT', title: 'Scanned Car Parts', body: '3D-scanning discontinued or broken car parts, then re-manufacturing them to fit perfectly.' },
-          { img: 'maker-p3', tag: 'CUSTOM', title: 'Custom Products', body: 'One-off custom product designs, functional, printable objects made exactly to spec.' }
+          { img: 'maker-p1', photo: './assets/helmet2-web.jpg', photoPos: '48% 35%', tag: 'PROPS', title: 'Replica Helmets', body: 'Screen-accurate replica helmets, printed and painted to look and wear like the real thing.' },
+          { img: 'maker-p2', photo: './assets/scanning2-web.jpg', photoPos: '55% 42%', tag: 'SCAN → PRINT', title: 'Scanned Parts', body: '3D-scanning discontinued or broken car parts, then re-manufacturing them to fit perfectly.' },
+          { img: 'maker-p3', photo: './assets/ozelparcalar-web.jpg', photoPos: '48% 52%', tag: 'CUSTOM', title: 'Custom Products', body: 'One-off custom product designs, functional, printable objects made exactly to spec.' }
         ],
         ctaKicker: 'Next up', ctaTitle: 'The physical builds have a digital sibling.', ctaBody: 'The same make-it-yourself instinct, pointed at software instead of resin, AI-assisted builds, fast, and mostly for fun.', ctaBtn: 'See vibe coding'
       },
@@ -1258,51 +1289,14 @@ class Component extends DCLogic {
         intro: 'Notes from the road, the workshop and the terminal, short entries, written as they happen.',
         backLabel: 'All entries', readMore: 'Read entry', filterLabel: 'Filter', authorName: 'Oğulcan Muci', authorRole: 'Marketer · Explorer · Maker', authorBio: 'Growth marketer and lifelong explorer, writing field notes from the road, the workshop and the terminal.',
         entries: [
-          { id: 'marmara-vs-toronto', img: 'journal-school', date: 'JUL 2026', tag: 'SCHOOL', title: 'Marmara vs. Toronto: four years of theory against two years of practice', excerpt: 'Four years of economics in Istanbul, two years of digital marketing in Toronto. Neither degree beats the other, they just taught me completely different things.',
-            hero: 'journal-school-hero', readTime: '5 min read',
-            content: [
-              { type: 'p', text: 'I get asked a lot which degree actually mattered, four years of economics at Marmara University in Istanbul, or two years of digital marketing at a college in Toronto. My answer is always the same: both, for completely different reasons.' },
-              { type: 'h', text: 'Marmara: four years, deep theory' },
-              { type: 'p', text: 'Marmara gave me the foundation, heavy theory, a proper prep year to get my English and academic footing right, and a campus big enough to feel like its own city.' },
-              { type: 'list', items: ['Dense theoretical grounding in economics', 'A full prep year before the real coursework even started', 'A huge campus with genuinely active social clubs', 'Erasmus students everywhere, which meant constant language practice', 'A strong, sharp student profile within my own department'] },
-              { type: 'p', text: 'What it didn\'t give me was much contact with the real world. There was no mandatory internship, so most of what I know about actually running something, I had to go find on my own.' },
-              { type: 'h', text: 'Toronto: two years, all practice' },
-              { type: 'p', text: 'Toronto flipped the formula. Shorter, but every part of it was built around doing the work, not just studying it.' },
-              { type: 'list', items: ['A genuinely international network, classmates from everywhere, every age group', 'Mandatory attendance that kept everyone actually showing up and engaged', 'A required internship built straight into the program', 'Professors who constantly pushed us to go build our own thing, not just chase a job title', 'A mindset across the whole school that was hard to find back home'] },
-              { type: 'p', text: 'It was lighter on theory, but it made up for that by throwing me straight into the deep end.' },
-              { type: 'quote', text: 'One degree taught me how markets work. The other taught me how to work in one.' },
-              { type: 'p', text: 'I don\'t rank them against each other, I got a genuinely different kind of value out of each. Marmara gave me the frame to think with, Toronto gave me the reps to actually use it.' }
-            ] },
-          { id: 'burgman-panel', img: 'journal-scooter', date: 'JUL 2026', tag: 'MAKE', title: 'The scooter panel nobody had, so I printed one', excerpt: 'My Suzuki Burgman 125 went down and cracked the right side panel. The part didn\'t exist anywhere, so I printed, welded, and painted my way to a fix for a fraction of the price.',
-            hero: 'journal-scooter-hero', readTime: '3 min read',
-            content: [
-              { type: 'p', text: 'My Burgman 125 went down on its right side, nothing dramatic, just enough to crack the side panel clean through. First move was the obvious one: order the replacement part.' },
-              { type: 'p', text: 'Except the part didn\'t exist. Not from Suzuki, not through any of the usual second-hand or aftermarket channels. A brand-new full panel set would have run about 19,000 TL, and even then I wasn\'t sure it would actually fix just the one broken piece.' },
-              { type: 'h', text: 'The fix' },
-              { type: 'p', text: 'So I measured the crack, modeled the missing section, and printed it. The print alone wasn\'t going to survive daily riding, so I bonded it to the original panel with plastic weld, filled the seams with body filler, and blocked it back to a clean surface.' },
-              { type: 'list', items: ['Measure the break and model the repair piece', 'Print in a material that takes plastic weld well', 'Bond, fill, and block-sand until the seam disappears', 'Prime, base coat, and clear to match the original panel'] },
-              { type: 'img', id: 'journal-scooter-b1', hint: 'Printed panel before paint', caption: 'The printed piece, pre-paint' },
-              { type: 'p', text: 'Total cost: about 3,000 TL, printing, materials, and paint included. Same panel, same finish, roughly a sixth of the price of buying new, and honestly a piece I trust more than the original now.' },
-              { type: 'quote', text: '"The part doesn\'t exist" just means nobody\'s printed it yet.' }
-            ] },
-          { id: 'vietnam', img: 'journal-4', date: 'AUG 2025', tag: 'RIDE', title: 'Vietnam, S to N', excerpt: 'One country end to end on two wheels, the best market research a marketer can do.',
-            hero: 'journal-4-hero', readTime: '6 min read',
-            content: [
-              { type: 'p', text: 'I rode Vietnam end to end, south to north, over a couple of weeks on a small bike that had no business covering that distance. Everyone told me to fly the long legs. Flying teaches you nothing about a place.' },
-              { type: 'p', text: 'The route wrote itself between roadside cafés, a mechanic in Da Nang, a coffee stall outside Phong Nha, a dozen conversations that told me more about how people actually buy than any market report.' },
-              { type: 'img', id: 'journal-4-b1', hint: 'On the road in Vietnam', caption: 'Somewhere between south and north' },
-              { type: 'quote', text: 'You learn a place infinitely faster from inside it than from reading about it.' },
-              { type: 'h', text: 'What the road taught me' },
-              { type: 'p', text: 'Riding a country top to bottom, you feel the market change under you, what people spend on, what they trust, how fast a village goes from cash to QR codes. It\'s the same instinct that makes me a decent marketer: pay attention on the ground, not just in the dashboard.' },
-              { type: 'p', text: 'It left me where every good trip does, already planning the next border, the next market, the next question worth chasing.' }
-            ] },
-          { id: 'hello', img: 'journal-hello', date: 'MAY 2025', tag: 'NOTES', title: 'Hello, and welcome to the journal', excerpt: 'A quick hello, why this site is turning into a real journal, and what you can expect to find here: marketing, 3D printing, and vibe coding.',
+          { id: 'hello', img: 'journal-hello', photo: './assets/blog1-web.jpg', photoPos: '72% 35%', photoAlt: 'Rocky, arms raised at the top of the Philadelphia Museum of Art steps', date: 'MAY 2025', tag: 'NOTES', title: 'Hello, and welcome to the journal', excerpt: 'A quick hello, why this site is turning into a real journal, and what you can expect to find here: marketing, 3D printing, vibe coding, and the road.',
             hero: 'journal-hello-hero', readTime: '2 min read',
             content: [
+              { type: 'p', text: 'Yes, that\'s the Rocky scene up top, the museum steps, arms up. Every new chapter deserves a little cinematic drama, so consider this mine.' },
               { type: 'p', text: 'Hey, I\'m Muci. Growth marketer by trade, based in Rotterdam these days, originally from Istanbul, and about equally at home behind an ad dashboard, on a motorcycle, or elbow-deep in a 3D printer.' },
               { type: 'p', text: 'I\'m turning this site into an actual journal, not a portfolio that just sits there, but a running log of what I\'m building, breaking, and learning along the way.' },
-              { type: 'p', text: 'Three things you can expect to find here:' },
-              { type: 'list', items: ['Marketing, campaigns, systems, and the odd hard-won lesson from running an agency', '3D printing, prints, prototypes, and projects worth documenting', 'Vibe coding, building software fast with AI, mostly for fun, sometimes for clients'] },
+              { type: 'p', text: 'Four things you can expect to find here:' },
+              { type: 'list', items: ['Marketing, campaigns, systems, and the odd hard-won lesson from running an agency', '3D printing, prints, prototypes, and projects worth documenting', 'Vibe coding, building software fast with AI, mostly for fun, sometimes for clients', 'And road stories, the rides, the detours, the odd border crossing along the way'] },
               { type: 'p', text: 'No fixed schedule, no filler, just entries written when there\'s actually something worth writing down. Glad you\'re here, let\'s see where this goes.' }
             ] }
         ]
@@ -1426,16 +1420,16 @@ class Component extends DCLogic {
         teamTitle: 'Bunları tek başıma yapmıyorum.',
         teamIntro: 'Neredeyse her projenin arkasında güvendiğim bir ekip var. Bu projelerde birlikte çalıştığım insanlar.',
         team: [
-          { id: 'team-1', name: 'İsim Soyisim', role: 'Görev / unvan', company: 'Şirket' },
-          { id: 'team-2', name: 'İsim Soyisim', role: 'Görev / unvan', company: 'Şirket' },
-          { id: 'team-3', name: 'İsim Soyisim', role: 'Görev / unvan', company: 'Şirket' },
-          { id: 'team-4', name: 'İsim Soyisim', role: 'Görev / unvan', company: 'Şirket' },
-          { id: 'team-5', name: 'İsim Soyisim', role: 'Görev / unvan', company: 'Şirket' },
-          { id: 'team-6', name: 'İsim Soyisim', role: 'Görev / unvan', company: 'Şirket' },
-          { id: 'team-7', name: 'İsim Soyisim', role: 'Görev / unvan', company: 'Şirket' },
-          { id: 'team-8', name: 'İsim Soyisim', role: 'Görev / unvan', company: 'Şirket' },
-          { id: 'team-9', name: 'İsim Soyisim', role: 'Görev / unvan', company: 'Şirket' },
-          { id: 'team-10', name: 'İsim Soyisim', role: 'Görev / unvan', company: 'Şirket' }
+          { id: 'team-1', photo: './assets/team-arifcan-web.jpg', name: 'Arifcan', role: '3D Baskı Uzmanı', company: 'Orca 3D Hub' },
+          { id: 'team-2', photo: './assets/team-hasan-web.jpg', name: 'Hasan', role: 'Mimar', company: 'Siesta Architects' },
+          { id: 'team-3', photo: './assets/team-eren-web.jpg', name: 'Eren', role: 'Dijital Pazarlamacı', company: 'Turnalar' },
+          { id: 'team-4', photo: './assets/team-efekan-web.jpg', name: 'Efekan', role: 'Pazarlamacı', company: 'SEM' },
+          { id: 'team-5', photo: './assets/team-can-web.jpg', name: 'Can', role: 'Veri Analisti', company: 'SEM' },
+          { id: 'team-6', photo: './assets/team-safa-web.jpg', name: 'Safa', role: 'Tüccar', company: 'Eflani Flour Mills' },
+          { id: 'team-7', photo: './assets/team-alper-web.jpg', name: 'Alper', role: 'SEO Uzmanı', company: 'Mersenne Minds' },
+          { id: 'team-8', photo: './assets/team-emma-web.jpg', name: 'Emma', role: 'İş Geliştirme', company: 'B Futurist' },
+          { id: 'team-9', photo: './assets/team-demiray-web.jpg', name: 'Demiray', role: 'Dijital Baskı', company: 'Trend Mecra' },
+          { id: 'team-10', photo: './assets/team-gokselin-web.jpg', name: 'Gokselin', role: 'Prodüksiyon', company: 'Huug Studio' }
         ],
         did: [
           { no: '01', title: 'Datalyst\'i kurdum', body: 'Toronto\'da bir pazarlama ajansı kurdum ve e-ticaret ile B2B\'de 7 haneli müşterileri yönetecek şekilde büyüttüm.' },
@@ -1499,18 +1493,18 @@ class Component extends DCLogic {
         heroCaption3: 'KOH TAO, TAYLAND',
         filmTitle: 'YOLCULUK, DURAKLARIYLA',
         chapters: [
-          { no: '01', era: 'İstanbul · başlangıç', title: 'Bir türlü yerinde duramayan çocuk', body: 'Hikaye İstanbul\'da başlıyor, insanı hiç rahat bırakmayan bir şehirde. Fazlasıyla meraklı büyüdüm; olduğum yerde kalmaktansa hep bir sonraki köşede ne olduğunu merak ettim. O huzursuzluk hiç geçmedi, zamanla sadece köşeler büyüdü.', img: 'exp-ch1', imgHint: 'İstanbul, ilk yıllar', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' },
-          { no: '02', era: 'Marmara Üniversitesi', title: 'Ayrılmadan önce haritayı ezberlemek', body: 'Üniversite bana pazarların dilini öğretti, ama asıl ders dünyanın ne kadarını hiç görmediğimi fark etmek oldu. Mezun olduğumda iki şeyden emindim: büyümenin nasıl işlediğini biliyordum, gerisini bir masanın başında öğrenecek değildim.', img: 'exp-ch2', imgHint: 'Mezuniyet', cols: '1fr 1fr', imgCol: '2', txtCol: '1', imgX: '28', txtX: '-28' },
-          { no: '03', era: 'ABD · Work & Travel', title: 'İlk sınır, ilk ufuk', body: 'Work and Travel beni ilk kez Amerika\'ya çıkardı. Şehir şehir, pazar pazar, her şey hızlı akıyordu. Döndüğümde basit ama net bir şey öğrenmiştim: bir yeri okuyarak değil, içine girerek çok daha hızlı öğreniyorsun.', img: 'exp-ch3', imgHint: 'ABD\'yi geçmek', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' },
-          { no: '04', era: 'Kanada · sıçrama', title: 'Toronto\'da sıfırdan bir başlangıç', body: 'Asıl sıçrama sonra geldi: iki kedi ile Kanada\'ya taşındım. Okudum, çalıştım, Toronto\'da sıfırdan bir şirket kurdum. Evin, geldiğim yer değil seçtiğim yer olduğunu ilk o zaman anladım, o yıllar arada birkaç kez daha Amerika\'ya gitmem için de vesile oldu. Kanada yolculuğuma katkıda bulunan herkese teşekkürler.', img: 'exp-ch4', imgHint: 'Kanada / Toronto', cols: '1fr 1fr', imgCol: '2', txtCol: '1', imgX: '28', txtX: '-28' },
-          { no: '05', era: 'Asya · göçebe çağı', title: 'Ev, işin yürüdüğü her yer', body: 'Tayland, Vietnam, BAE. Bir ajansı kafelerden, havalimanı salonlarından, yol kenarındaki moladan yönettim. Vietnam\'ı uçtan uca geçtim. Hep düşündüğüm şey doğrulanmış oldu: iş seyahat edebiliyor, yeter ki sen de etmeye razı ol.', img: 'exp-ch5', imgHint: 'Güneydoğu Asya', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' },
-          { no: '06', era: 'Hollanda · şimdi', title: 'Rotterdam, işin perde arkası', body: '2025 sonunda buraya, Rotterdam\'a taşındım. Sokaklar daha düz, rüzgar daha sert; hafta sonları kürek tahtası yerine artık koşuyorum, bisiklete biniyorum ve çalışıyorum. Bu iş bana Avrupa\'yı görme fırsatı da verdi, kısa sürede Almanya, Belçika, Yunanistan ve Hollanda\'da pek çok şehri ziyaret ettim. Asıl değişim görünmeyen tarafta oldu: B2B dinamiklerini çok daha derinden öğreniyorum, bir yandan da işin elimle dokunmadan da yürümesini sağlayacak otomasyonu kuruyorum.', img: 'exp-ch6', imgHint: 'Hollanda', cols: '1fr 1fr', imgCol: '2', txtCol: '1', imgX: '28', txtX: '-28' },
-          { no: '07', era: 'İstanbul · şimdilik yeniden', title: 'Bir sonraki durağa kadar üs', body: 'Şu an yeniden İstanbul\'dayım; bu yılı pazarlama danışmanlığı ve üretim tarafını buradan yürüterek geçiriyorum. Kalıcı bir dönüş değil bu, sadece bir sonraki milestone\'a kadar üs burası.', img: 'exp-ch7', imgHint: 'İstanbul, şimdi', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' }
+          { no: '01', era: 'İstanbul · başlangıç', title: 'Bir türlü yerinde duramayan çocuk', body: 'Hikaye İstanbul\'da başlıyor, insanı hiç rahat bırakmayan bir şehirde. Fazlasıyla meraklı büyüdüm; olduğum yerde kalmaktansa hep bir sonraki köşede ne olduğunu merak ettim. O huzursuzluk hiç geçmedi, zamanla sadece köşeler büyüdü.', img: 'exp-ch1', imgHeight: '360px', photo: './assets/istanbul-beginning-web.jpg', photoPos: '50% 30%', imgHint: 'İstanbul, ilk yıllar', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' },
+          { no: '02', era: 'Marmara Üniversitesi', title: 'Ayrılmadan önce haritayı ezberlemek', body: 'Üniversite bana pazarların dilini öğretti, ama asıl ders dünyanın ne kadarını hiç görmediğimi fark etmek oldu. Mezun olduğumda iki şeyden emindim: büyümenin nasıl işlediğini biliyordum, gerisini bir masanın başında öğrenecek değildim.', img: 'exp-ch2', imgHeight: '360px', photo: './assets/marmara-web.jpg', photoPos: '45% 25%', imgHint: 'Mezuniyet', cols: '1fr 1fr', imgCol: '2', txtCol: '1', imgX: '28', txtX: '-28' },
+          { no: '03', era: 'ABD · Work & Travel', title: 'İlk sınır, ilk ufuk', body: 'Work and Travel beni ilk kez Amerika\'ya çıkardı. Şehir şehir, pazar pazar, her şey hızlı akıyordu. Döndüğümde basit ama net bir şey öğrenmiştim: bir yeri okuyarak değil, içine girerek çok daha hızlı öğreniyorsun.', img: 'exp-ch3', imgHeight: '360px', photo: './assets/workandtravel-web.jpg', photoPos: '68% 30%', imgHint: 'ABD\'yi geçmek', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' },
+          { no: '04', era: 'Kanada · sıçrama', title: 'Toronto\'da sıfırdan bir başlangıç', body: 'Asıl sıçrama sonra geldi: iki kedi ile Kanada\'ya taşındım. Okudum, çalıştım, Toronto\'da sıfırdan bir şirket kurdum. Evin, geldiğim yer değil seçtiğim yer olduğunu ilk o zaman anladım, o yıllar arada birkaç kez daha Amerika\'ya gitmem için de vesile oldu. Kanada yolculuğuma katkıda bulunan herkese teşekkürler.', img: 'exp-ch4', imgHeight: '360px', photo: './assets/canada-web.jpg', photoPos: '50% 46%', imgHint: 'Kanada / Toronto', cols: '1fr 1fr', imgCol: '2', txtCol: '1', imgX: '28', txtX: '-28' },
+          { no: '05', era: 'Asya · göçebe çağı', title: 'Ev, işin yürüdüğü her yer', body: 'Tayland, Vietnam, BAE. Bir ajansı kafelerden, havalimanı salonlarından, yol kenarındaki moladan yönettim. Vietnam\'ı uçtan uca geçtim. Hep düşündüğüm şey doğrulanmış oldu: iş seyahat edebiliyor, yeter ki sen de etmeye razı ol.', img: 'exp-ch5', imgHeight: '360px', photo: './assets/asia-web.jpg', photoPos: '50% 62%', imgHint: 'Güneydoğu Asya', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' },
+          { no: '06', era: 'Hollanda · şimdi', title: 'Rotterdam, işin perde arkası', body: '2025 sonunda Rotterdam\'a taşındım: sokaklar daha düz, rüzgar daha sert, hafta sonları artık koşuyorum, bisiklete biniyorum. Bu iş Avrupa\'yı görme fırsatı da verdi, kısa gezilerle Almanya, Belçika, Yunanistan ve Hollanda\'da bir çok şehir gördüm. Asıl değişim görünmeyen tarafta oldu, B2B\'yi çok daha derinden öğreniyor, işi elimle dokunmadan yürütecek otomasyonu kuruyorum.', img: 'exp-ch6', imgHeight: '360px', photo: './assets/rotterdam-explore-web.jpg', photoPos: '58% 42%', imgHint: 'Hollanda', cols: '1fr 1fr', imgCol: '2', txtCol: '1', imgX: '28', txtX: '-28' },
+          { no: '07', era: 'İstanbul', title: 'Bir sonraki durağa kadar üs', body: 'Şu an yeniden İstanbul\'dayım; bu yılı pazarlama danışmanlığı ve üretim tarafını buradan yürüterek geçiriyorum. Kalıcı bir dönüş değil bu, sadece bir sonraki milestone\'a kadar üs burası.', img: 'exp-ch7', imgHeight: '360px', imgHint: 'Sıradaki yolculuğa hazırlanıyorum', cols: '1fr 1fr', imgCol: '1', txtCol: '2', imgX: '-28', txtX: '28' }
         ],
         mileageTitle: 'KİLOMETRELER',
         rides: [
           { stat: '40+', place: 'Türkiye', unit: 'il' },
-          { stat: '25+', place: 'ABD', unit: 'eyalet' },
+          { stat: '25+', place: 'ABD', unit: 'il' },
           { stat: '10+', place: 'Kanada', unit: 'eyalet' },
           { stat: '7', place: 'Avrupa', unit: 'ülke' },
           { stat: '5', place: 'Tayland', unit: 'bölge' },
@@ -1530,92 +1524,55 @@ class Component extends DCLogic {
         ],
         projectsTitle: 'NE ÜRETİYORUM',
         projects: [
-          { img: 'maker-p1', tag: 'PROP', title: 'Replika Kasklar', body: 'Gerçeği gibi görünüp gerçeği gibi giyilecek şekilde basılıp boyanıyor. Fakat LED\'i açınca haliyle içeriden bir şey görmüyorsunuz.' },
-          { img: 'maker-p2', tag: 'TARA → BAS', title: 'Taranan Araç Parçaları', body: 'Üretimi biten ya da kırılan araç parçalarını 3D tarayıp, tam oturacak şekilde yeniden üretiyoruz.' },
-          { img: 'maker-p3', tag: 'ÖZEL', title: 'Özel Ürünler', body: 'Tek seferlik özel ürün tasarımları, tam ölçüsüne göre yapılmış işlevsel, basılabilir nesneler.' }
+          { img: 'maker-p1', photo: './assets/helmet2-web.jpg', photoPos: '48% 35%', tag: 'PROP', title: 'Replika Kasklar', body: 'Gerçeği gibi görünüp gerçeği gibi giyilecek şekilde basılıp boyanıyor. Fakat LED\'i açınca haliyle içeriden bir şey görmüyorsunuz.' },
+          { img: 'maker-p2', photo: './assets/scanning2-web.jpg', photoPos: '55% 42%', tag: 'TARA → BAS', title: 'Taranan Parçalar', body: 'Üretimi biten ya da kırılan araç parçalarını 3D tarayıp, tam oturacak şekilde yeniden üretiyoruz.' },
+          { img: 'maker-p3', photo: './assets/ozelparcalar-web.jpg', photoPos: '48% 52%', tag: 'ÖZEL', title: 'Özel Ürünler', body: 'Tek seferlik özel ürün tasarımları, tam ölçüsüne göre yapılmış işlevsel, basılabilir nesneler.' }
         ],
         ctaKicker: 'Sırada', ctaTitle: 'Fiziksel üretimin bir de dijital kardeşi var.', ctaBody: 'Aynı "kendim yaparım" içgüdüsü, reçine yerine yazılıma yönelmiş halde: AI destekli, hızlı ve çoğunlukla keyif için.', ctaBtn: 'Vibe coding\'e göz at'
       },
       vibe: {
-        kicker: 'BÖLÜM 04, BİTLER', title: 'Vibe Coding',
-        intro: 'AI ile yazılım geliştirmek, Claude ile inşa etmek, hızlı prototipleme ve yaratıcı bir araç olarak kod.',
+        kicker: 'BÖLÜM 04, KOD', title: 'Vibe Coding',
+        intro: 'Claude ile inşa ederek düşünce hızında yazılım üretmek: hızlı prototipleme ve kodu yalnızca bir iş değil, yaratıcı bir araç olarak kullanmak.',
         term: [
-          { c: 'whoami', o: 'pazarlamacı × sürücü × üretici, fikirleri yazılıma dönüştürüyor' },
+          { c: 'whoami', o: 'pazarlamacı × gezgin × üretici, fikirleri yazılıma dönüştürüyor' },
           { c: 'ls ~/forge', o: 'n8n-leadgen/   cac-dashboard/   print-farm-monitor/   trip-logger/' },
-          { c: 'cat manifesto.txt', o: 'Önce prototip. Hayatta kalanı parlat.' },
-          { c: 'claude "trip logger\'ı kur"', o: '✓ dakikalar içinde kuruldu, ben sadece yönlendiriyorum' },
-          { c: './ship --vibe', o: '✓ yayınlı, yarın yeniden' }
+          { c: 'cat manifesto.txt', o: 'Önce prototipi çıkar, ayakta kalanı cilala.' },
+          { c: 'claude "trip logger\'ı kur"', o: '✓ dakikalar içinde hazır, ben sadece yön veriyorum' },
+          { c: './ship --vibe', o: '✓ yayında, yarın tekrar geliştiririz' }
         ],
         cards: [
-          { title: 'Claude ile inşa', body: 'Claude ile eşleşip haftalar süren işleri saatler içinde, fikirden yayına, inşa etmek.' },
-          { title: 'Otomasyon', body: 'Pazarlama, operasyonlar ve üretimi bir sisteme bağlayan n8n hatları.' },
-          { title: 'Yaratıcı çözümler', body: 'Gerçek sorunlar için küçük araçlar, yol günlüklerinden baskı çiftliği panellerine.' }
+          { title: 'Claude ile inşa', body: 'Claude ile birlikte, haftalar süren işleri saatler içinde bitiriyorum; fikirden yayına kadar.' },
+          { title: 'Otomasyon', body: 'Pazarlama, operasyon ve üretim süreçlerini tek bir sistemde birleştiren n8n otomasyonları.' },
+          { title: 'Yaratıcı çözümler', body: 'Gerçek sorunlar için küçük araçlar: yol günlüklerinden 3D yazıcı takip panellerine kadar.' }
         ],
         appsTitle: 'NE GELİŞTİRİYORUM', webLabel: 'Web uygulaması', mobileLabel: 'Mobil uygulama',
-        webCaption: 'Paneller & iç araçlar', mobileCaption: 'Müşteriye dönük uygulamalar',
+        webCaption: 'Paneller ve iç araçlar', mobileCaption: 'Müşteriye yönelik uygulamalar',
         aiOps: {
-          kicker: 'AI OPERASYONLARI',
-          title: 'Ekibin yükünü alan yapay zeka',
-          body: 'Uygulamaların ötesinde, müşterinin operasyonuna yerleşen yapay zeka mekanizmaları kuruyorum. Tekrar eden ama karar gerektiren işleri Claude destekli ajanlar üstleniyor; ekip de zamanını gerçekten insan gerektiren işlere ayırıyor.',
+          kicker: 'YAPAY ZEKA OPERASYONLARI',
+          title: 'Ekibin iş yükünü hafifleten yapay zeka',
+          body: 'Uygulamaların ötesinde, müşterinin operasyonuna yerleşen yapay zeka mekanizmaları kuruyorum. Tekrarlayan ama karar gerektiren işleri Claude destekli ajanlar üstleniyor, ekip zamanını gerçekten insan gerektiren işlere ayırabiliyor.',
           points: [
-            { title: 'Ayıklama & yönlendirme', body: 'Gelen mesajlar, lead\'ler ve talepler kimse açmadan otomatik okunur, sınıflandırılır ve yönlendirilir.' },
-            { title: 'Taslak & özet', body: 'İlk taslak yanıtlar, raporlar ve toplantı özetleri sıfırdan yazmak yerine ekibin onayına hazır üretilir.' },
-            { title: 'Kesintisiz izleme', body: 'Ajanlar panelleri ve süreçleri 7/24 izler ve yalnızca karar gerekeni işaretler.' }
+            { title: 'Ayıklama ve yönlendirme', body: 'Gelen mesajlar, potansiyel müşteriler ve talepler kimse elle açmadan otomatik olarak okunur, sınıflandırılır ve yönlendirilir.' },
+            { title: 'Taslak ve özet', body: 'İlk taslak yanıtlar, raporlar ve toplantı özetleri sıfırdan yazılmak yerine, ekibin onayına hazır şekilde üretilir.' },
+            { title: 'Kesintisiz izleme', body: 'Ajanlar panelleri ve süreçleri gece gündüz izler, yalnızca karar gerektiren durumları işaretler.' }
           ]
         },
-        ctaKicker: 'Benimle inşa et', ctaTitle: 'Projeni vibe coding ile birlikte geliştirelim.', ctaBody: 'İster yarım kalmış bir taslak olsun ister aklından geçen çılgın bir fikir, ne varsa getir, Claude ile birlikte hızlıca prototipini çıkaralım.'
+        ctaKicker: 'Benimle inşa et', ctaTitle: 'Projeni birlikte, vibe coding ile hayata geçirelim.', ctaBody: 'İster yarım kalmış bir taslak olsun ister aklından geçen çılgın bir fikir, ne varsa getir, Claude ile birlikte hızlıca prototipini çıkaralım.'
       },
       journal: {
         kicker: 'SAHA NOTLARI', title: 'Günlük',
         intro: 'Yoldan, atölyeden ve terminalden notlar, yaşandıkça yazılan kısa kayıtlar.',
         backLabel: 'Tüm yazılar', readMore: 'Yazıyı oku', filterLabel: 'Filtrele', authorName: 'Oğulcan Muci', authorRole: 'Pazarlamacı · Yolcu · Üretici', authorBio: 'Growth Marketer ve ömür boyu yolcu; yoldan, atölyeden ve terminalden saha notları yazıyor.',
         entries: [
-          { id: 'marmara-vs-toronto', img: 'journal-school', date: 'TEM 2026', tag: 'EĞİTİM', title: 'Marmara ile Toronto: dört yıllık teoriye karşı iki yıllık pratik', excerpt: 'İstanbul\'da dört yıllık iktisat, Toronto\'da iki yıllık dijital pazarlama. Biri diğerinden üstün değil, ikisi de bana tamamen farklı şeyler öğretti.',
-            hero: 'journal-school-hero', readTime: '5 dk okuma',
-            content: [
-              { type: 'p', text: 'En çok sorulan sorulardan biri şu: hangi eğitim gerçekten işe yaradı, İstanbul\'da Marmara Üniversitesi\'ndeki dört yıllık iktisat mı, yoksa Toronto\'daki iki yıllık dijital pazarlama mı? Cevabım hep aynı: ikisi de, ama tamamen farklı sebeplerle.' },
-              { type: 'h', text: 'Marmara: dört yıl, derin teori' },
-              { type: 'p', text: 'Marmara bana temeli verdi: yoğun bir teori altyapısı, İngilizcemi ve akademik zeminimi oturtan düzgün bir hazırlık sınıfı, ve kendi başına bir şehir gibi hissettiren kocaman bir kampüs.' },
-              { type: 'list', items: ['İktisatta yoğun teorik altyapı', 'Asıl dersler başlamadan önce tam bir yıllık hazırlık programı', 'Gerçekten aktif sosyal kulüplere sahip devasa bir kampüs', 'Her yerde Erasmus öğrencisi, yani sürekli dil pratiği', 'Kendi bölümümde güçlü, iddialı bir öğrenci profili'] },
-              { type: 'p', text: 'Bana vermediği şey gerçek dünyayla temastı. Zorunlu staj yoktu, dolayısıyla bir şeyi gerçekten yürütmek hakkında bildiğim çoğu şeyi kendim gidip bulmak zorunda kaldım.' },
-              { type: 'h', text: 'Toronto: iki yıl, tamamen pratik' },
-              { type: 'p', text: 'Toronto formülü tersine çevirdi. Süre daha kısaydı ama her parçası, konuyu sadece çalışmak değil, gerçekten yapmak üzerine kuruluydu.' },
-              { type: 'list', items: ['Gerçek anlamda uluslararası bir ağ, her yerden ve her yaştan sınıf arkadaşları', 'Herkesi gerçekten derste tutan zorunlu devam', 'Programa gömülü zorunlu bir staj', 'Bize sürekli bir unvan kovalamak yerine kendi işini kurmayı iten hocalar', 'Türkiye\'de pek rastlamadığım, okulun geneline yayılmış bir zihniyet'] },
-              { type: 'p', text: 'Teoride daha hafifti, ama beni doğrudan işin içine atarak bunu telafi etti.' },
-              { type: 'quote', text: 'Bir eğitim bana piyasaların nasıl işlediğini öğretti. Diğeri bir piyasanın içinde nasıl çalışacağımı öğretti.' },
-              { type: 'p', text: 'İkisini birbirine karşı sıralamıyorum, her birinden gerçekten farklı bir değer aldım. Marmara bana düşünecek çerçeveyi verdi, Toronto o çerçeveyi gerçekten kullanacağım tekrarları verdi.' }
-            ] },
-          { id: 'burgman-panel', img: 'journal-scooter', date: 'TEM 2026', tag: 'ÜRETİM', title: 'Bulunmayan scooter panelini kendim bastım', excerpt: 'Suzuki Burgman 125\'im düştü ve sağ paneli çatladı. Parça hiçbir yerde yoktu; baskı, plastik kaynak ve boyayla fiyatının çok altına çözdüm.',
-            hero: 'journal-scooter-hero', readTime: '3 dk okuma',
-            content: [
-              { type: 'p', text: 'Burgman 125\'im sağ tarafının üzerine devrildi, çok dramatik bir şey değildi ama yan paneli tam ortadan çatlatmaya yetti. İlk aklıma gelen her zamanki çözümdü: yedek parça sipariş etmek.' },
-              { type: 'p', text: 'Ama parça yoktu. Ne Suzuki\'de, ne alışılagelmiş ikinci el ya da yan sanayi kanallarında. Sıfır bir tam panel seti bana yaklaşık 19.000 TL\'ye mal olacaktı, üstelik sadece kırılan tek parçayı gerçekten düzeltip düzeltmeyeceğinden de emin değildim.' },
-              { type: 'h', text: 'Çözüm' },
-              { type: 'p', text: 'Ben de çatlağı ölçtüm, eksik bölümü modelledim ve bastım. Baskı tek başına günlük kullanıma dayanmayacaktı, o yüzden orijinal panele plastik kaynakla yapıştırdım, dikişleri macunla doldurdum ve düz bir yüzey çıkana kadar bloklu zımparaladım.' },
-              { type: 'list', items: ['Kırığı ölçüp onarım parçasını modellemek', 'Plastik kaynağı iyi tutan bir malzemeyle basmak', 'Yapıştırıp, macunlayıp, dikiş kaybolana kadar bloklu zımparalamak', 'Astar, taban rengi ve vernikle orijinal panele uydurmak'] },
-              { type: 'img', id: 'journal-scooter-b1', hint: 'Boyadan önce basılmış panel', caption: 'Basılan parça, boya öncesi' },
-              { type: 'p', text: 'Toplam maliyet: baskı, malzeme ve boya dahil yaklaşık 3.000 TL. Aynı panel, aynı görünüm, sıfır almanın yaklaşık altıda biri fiyatına, üstelik artık orijinalinden daha çok güvendiğim bir parça.' },
-              { type: 'quote', text: '"Parça bulunmuyor" sadece kimsenin henüz basmadığı anlamına gelir.' }
-            ] },
-          { id: 'vietnam', img: 'journal-4', date: 'AĞU 2025', tag: 'SÜRÜŞ', title: 'Vietnam, G\'den K\'ye', excerpt: 'Bir ülkeyi iki tekerin üzerinde baştan sona geçmek, pazarlamacının yapabileceği en iyi pazar araştırması.',
-            hero: 'journal-4-hero', readTime: '6 dk okuma',
-            content: [
-              { type: 'p', text: 'Vietnam\'ı baştan sona, güneyden kuzeye, o mesafeyi kaldıracak hali olmayan küçük bir motorla birkaç haftada geçtim. Herkes uzun etapları uçakla geç dedi. Uçmak sana bir yer hakkında hiçbir şey öğretmez.' },
-              { type: 'p', text: 'Güzergah yol kenarı kafelerinde kendini yazdı, Da Nang\'da bir tamirci, Phong Nha çıkışında bir kahve tezgahı, insanların gerçekte nasıl satın aldığını herhangi bir pazar raporundan çok anlatan onlarca sohbet.' },
-              { type: 'img', id: 'journal-4-b1', hint: 'Vietnam\'da yolda', caption: 'Güney ile kuzey arasında bir yer' },
-              { type: 'quote', text: 'Bir yeri, hakkında okuyarak değil, içindeyken kat kat daha hızlı öğrenirsin.' },
-              { type: 'h', text: 'Yolun bana öğrettiği' },
-              { type: 'p', text: 'Bir ülkeyi tepeden aşağı sürerken pazarın altında değiştiğini hissedersin, insanların neye para harcadığı, neye güvendiği, bir köyün nakitten karekoda ne kadar hızlı geçtiği. Beni iyi bir pazarlamacı yapan içgüdünün aynısı: sadece panelde değil, sahada dikkatli ol.' },
-              { type: 'p', text: 'Beni her iyi yolculuğun bıraktığı yerde bıraktı, çoktan sıradaki sınırı, sıradaki pazarı, peşine düşmeye değer sıradaki soruyu planlıyordum.' }
-            ] },
-          { id: 'hello', img: 'journal-hello', date: 'MAY 2025', tag: 'NOTLAR', title: 'Merhaba, günlüğe hoş geldin', excerpt: 'Kısa bir merhaba, bu sitenin neden gerçek bir günlüğe dönüştüğü ve burada ne bulacağın: pazarlama, 3D baskı ve vibe coding.',
+          { id: 'hello', img: 'journal-hello', photo: './assets/blog1-web.jpg', photoPos: '72% 35%', photoAlt: 'Rocky, Philadelphia Sanat Müzesi merdivenlerinin tepesinde kollarını kaldırmış', date: 'MAY 2025', tag: 'NOTLAR', title: 'Merhaba, günlüğe hoş geldin', excerpt: 'Kısa bir merhaba: bu site neden gerçek bir günlüğe dönüşüyor ve burada seni ne bekliyor: pazarlama, 3D baskı, vibe coding ve yol hikayeleri.',
             hero: 'journal-hello-hero', readTime: '2 dk okuma',
             content: [
-              { type: 'p', text: 'Selam, ben Muci. Aslen İstanbulluyum, şu an Rotterdam\'da yaşıyorum ve kendimi bir reklam panelinin başında da, motosikletin üzerinde de, 3D yazıcının içinde de aynı derecede evimde hissediyorum.' },
-              { type: 'p', text: 'Bu siteyi artık gerçek bir günlüğe çeviriyorum, durağan bir portföy değil, ne inşa ettiğimin, neyi bozup neyi öğrendiğimin canlı kaydı olacak.' },
-              { type: 'p', text: 'Burada karşına çıkacak üç ana başlık:' },
-              { type: 'list', items: ['Pazarlama: kampanyalar, sistemler ve bir ajans yürütmekten çıkan zor ama değerli dersler', '3D baskı: baskılar, prototipler ve anlatmaya değer projeler', 'Vibe coding: AI ile hızlı yazılım üretmek, çoğunlukla keyif için, bazen müşteriler için'] },
-              { type: 'p', text: 'Sabit bir takvim yok, doldurma yazı da yok, sadece gerçekten anlatmaya değer bir şey olduğunda yazacağım. Burada olduğun için iyi, bakalım bu nereye gidecek.' }
+              { type: 'p', text: 'Yukarıdaki fotoğraf Rocky\'den, müze merdivenlerinin tepesi, kollar havada. Yeni bir sayfa açarken biraz sembolik bir kare istedim, o da bu oldu.' },
+              { type: 'p', text: 'Merhaba, ben Muci. Aslen İstanbulluyum, şu an Rotterdam\'da yaşıyorum; kendimi bir reklam panelinin başında da, motosikletin üzerinde de, 3D yazıcının karşısında da aynı derecede rahat hissediyorum.' },
+              { type: 'p', text: 'Bu siteyi gerçek bir günlüğe dönüştürüyorum. Durağan bir portföy olmaktan çıkıp, ne inşa ettiğimin, neyi bozup neyi öğrendiğimin düzenli bir kaydı olacak.' },
+              { type: 'p', text: 'Burada karşına çıkacak dört ana başlık var:' },
+              { type: 'list', items: ['Pazarlama: kampanyalar, sistemler ve bir ajans yürütürken öğrendiğim zor ama değerli dersler', '3D baskı: baskılar, prototipler ve anlatmaya değer projeler', 'Vibe coding: yapay zekayla hızlıca yazılım üretmek, çoğunlukla keyif için, bazen de müşteriler için', 'Ve yol hikayeleri: sürüşler, sapmalar, arada bir sınır geçişi'] },
+              { type: 'p', text: 'Sabit bir yayın takvimi yok, doldurma yazı da olmayacak; yalnızca gerçekten anlatmaya değer bir şey olduğunda buradan yazacağım. İyi ki buradasın, bakalım bu nereye gidecek.' }
             ] }
         ]
       },
