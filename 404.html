@@ -798,6 +798,9 @@
             <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ openEntry.hero }}" shape="rounded" radius="22" placeholder="Cover photo" hint-size="100%,420px" style="width:100%;height:420px"></x-import>
           </sc-if>
         </div>
+        <sc-if value="{{ openEntry.photoCaption }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:12px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.04em; color:#a3a29b; text-align:center; font-style:italic">{{ openEntry.photoCaption }}</div>
+        </sc-if>
 
         <div style="margin-top:48px; display:flex; flex-direction:column; gap:30px">
           <sc-for list="{{ openEntry.content }}" as="b" hint-placeholder-count="4">
@@ -1301,11 +1304,10 @@ class Component extends DCLogic {
         intro: 'Notes from the road, the workshop and the terminal, short entries, written as they happen.',
         backLabel: 'All entries', readMore: 'Read entry', filterLabel: 'Filter', authorName: 'Oğulcan Muci', authorRole: 'Marketer · Explorer · Maker', authorBio: 'Growth marketer and lifelong explorer, writing field notes from the road, the workshop and the terminal.',
         entries: [
-          { id: 'hello', img: 'journal-hello', photo: './assets/blog1-web.jpg', photoPos: '72% 35%', photoAlt: 'Rocky, arms raised at the top of the Philadelphia Museum of Art steps', date: 'MAY 2025', tag: 'NOTES', title: 'Hello, and welcome to the journal', excerpt: 'A quick hello, why this site is turning into a real journal, and what you can expect to find here: marketing, 3D printing, vibe coding, and the road.',
+          { id: 'hello', img: 'journal-hello', photo: './assets/blog1-web.jpg', photoPos: '72% 35%', photoAlt: 'Rocky, arms raised at the top of the Philadelphia Museum of Art steps', photoCaption: 'Rocky, arms up at the top of the museum steps.', date: 'MAY 2025', tag: 'NOTES', title: 'Hello, and welcome to the journal', excerpt: 'A quick hello, why this site is turning into a real journal, and what you can expect to find here: marketing, 3D printing, vibe coding, and the road.',
             hero: 'journal-hello-hero', readTime: '2 min read',
             content: [
-              { type: 'p', text: 'Yes, that\'s the Rocky scene up top, the museum steps, arms up. Every new chapter deserves a little cinematic drama, so consider this mine.' },
-              { type: 'p', text: 'Hey, I\'m Muci. Growth marketer by trade, based in Rotterdam these days, originally from Istanbul, and about equally at home behind an ad dashboard, on a motorcycle, or elbow-deep in a 3D printer.' },
+              { type: 'p', text: 'Hey, I\'m Muci. Growth marketer by trade, based in Rotterdam these days, originally from Istanbul. Outside of work I\'m usually on a motorcycle or elbow-deep in a 3D printer.' },
               { type: 'p', text: 'I\'m turning this site into an actual journal, not a portfolio that just sits there, but a running log of what I\'m building, breaking, and learning along the way.' },
               { type: 'p', text: 'Four things you can expect to find here:' },
               { type: 'list', items: ['Marketing, campaigns, systems, and the odd hard-won lesson from running an agency', '3D printing, prints, prototypes, and projects worth documenting', 'Vibe coding, building software fast with AI, mostly for fun, sometimes for clients', 'And road stories, the rides, the detours, the odd border crossing along the way'] },
@@ -1377,7 +1379,7 @@ class Component extends DCLogic {
         kicker: 'PAZARLAMACI · YOLCU · ÜRETİCİ · VIBE CODING',
         greeting: 'Selam,',
         title: 'Ben Muci!',
-        hero: 'Markalar büyütüyorum, dijital ve fiziksel ürünler geliştiriyorum, fırsat buldukça da dünyayı geziyorum, bazen iki teker üzerinde. Yolculuğuma hoş geldin.',
+        hero: 'Markaları online araçlar ile büyütüyorum, dijital ve fiziksel ürünler geliştiriyorum, fırsat buldukça da dünyayı geziyorum, bazen iki teker üzerinde. Yolculuğuma hoş geldin.',
         tagline: 'NL · TR · CA, ŞU AN HOLLANDA\'DA',
         scrollHint: 'KAYDIR',
         gridKicker: 'DÖRT SÜTUN',
@@ -1417,8 +1419,8 @@ class Component extends DCLogic {
       },
       marketer: {
         kicker: 'HAKKIMDA', title: 'Hakkımda',
-        headline: 'Hâlâ öğreniyorum, gittiğim her yerde biraz daha.',
-        heroLead: 'Ben Muci. Gittiğim her yerde aynı anda üç şey yapmaya çalışıyorum: pazarı okumak, işi yapmak ve ondan öğrenmek. İstanbul\'da öğrenciyken online satış yaparken de böyleydi, bugün dört kıtada kafelerden iş yürütürken de hâlâ öyle.',
+        headline: 'Hala öğreniyorum, gittiğim her yerde biraz daha.',
+        heroLead: 'Ben Muci. Gittiğim her yerde aynı anda üç şey yapmaya çalışıyorum: pazarı okumak, işi yapmak ve ondan öğrenmek. İstanbul\'da öğrenciyken online satış yaparken de böyleydi, bugün dört kıtada kafelerden iş yürütürken de hala öyle.',
         heroCta: 'Konuşalım',
         badge: 'PAZARLAMACI · ÜRETİCİ · YOLCU',
         portraitHint: 'Portre',
@@ -1482,10 +1484,10 @@ class Component extends DCLogic {
         ],
         intro: 'Markalar için sunduğum hizmetlerin özeti burada: paid kanallarla yeni müşteri kazanmaktan, işi büyük bir ekibe ihtiyaç duymadan büyüten Claude destekli otomasyona kadar.',
         services: [
-          { no: '01', tag: 'Paid', title: 'Performans Pazarlaması', body: 'Göstermelik metriklere değil, gerçek CAC ve ROAS hedeflerine kilitlenen, uçtan uca kurgulanmış paid kampanyalar.', items: ['Meta Ads', 'Google Ads', 'TikTok', 'Raporlama'] },
-          { no: '02', tag: 'Sosyal', title: 'Sosyal Reklam ve Kreatif', body: 'Kazanan reklamları taze tutan, CPM\'leri düşük seviyede sabitleyen kreatif test sistemleri ve sosyal medya hunileri.', items: ['Kreatif test', 'UGC brief', 'Retargeting'] },
-          { no: '03', tag: 'B2B', title: 'Potansiyel Müşteri Kazanımı', body: 'B2B tarafında öngörülebilir bir müşteri adayı akışı: nitelikli, beslenmiş ve satışa hazır hale getirilmiş potansiyel müşteriler.', items: ['Huniler', 'Lead scoring', 'Outbound'] },
-          { no: '04', tag: 'E-tic', title: 'E-ticaret Büyümesi', body: 'Shopify ve WooCommerce mağazalarını farklı pazarlarda büyütmek: yeni müşteri kazanımı, ortalama sepet tutarı ve tekrar satın alma.', items: ['Shopify', 'WooCommerce', 'CRO', 'E-posta/SMS'] },
+          { no: '01', tag: 'Paid', title: 'Performans Pazarlaması', body: 'CAC ve ROAS gibi gerçek hedefleri tutturmak için kurgulanmış, uçtan uca paid kampanyalar.', items: ['Meta Ads', 'Google Ads', 'TikTok', 'Raporlama'] },
+          { no: '02', tag: 'Sosyal', title: 'Sosyal Reklam ve Kreatif', body: 'Sürekli yeni kreatifler üreten test sistemleri ve sosyal medya huniler.', items: ['Kreatif test', 'UGC brief', 'Retargeting'] },
+          { no: '03', tag: 'B2B', title: 'Potansiyel Müşteri Kazanımı', body: 'B2B tarafında öngörülebilir bir müşteri adayı akışı: nitelikli ve satışa hazır hale getirilmiş potansiyel müşteriler.', items: ['Huniler', 'Lead scoring', 'Outbound'] },
+          { no: '04', tag: 'E-tic', title: 'E-ticaret Büyümesi', body: 'Shopify ve WooCommerce mağazalarını farklı pazarlarda büyütmek: yeni müşteri kazanımı, ortalama sepet tutarı ve tekrar satın alma üzerine çalışıyorum.', items: ['Shopify', 'WooCommerce', 'CRO', 'E-posta/SMS'] },
           { no: '05', tag: 'Affiliate', title: 'Affiliate ve İş Birlikleri', body: 'Ek gelir getiren affiliate ve yayıncı ağları kurmak ve yönetmek.', items: ['Ağlar', 'Yayıncı yönetimi', 'Takip'] },
           { no: '06', tag: 'Sistem', title: 'Pazarlama Otomasyonu', body: 'Yeni müşteri kazanımını, operasyonu ve raporlamayı kendi kendine işleyen tek bir sisteme bağlayan n8n akışları ve Claude destekli ajanlar.', items: ['n8n', 'Claude', 'Programatik'] }
         ],
@@ -1523,7 +1525,7 @@ class Component extends DCLogic {
           { stat: 'G → K', place: 'Vietnam', unit: 'tam geçiş' }
         ],
         closing: 'Her durak bana bir pazarlama raporun asla öğretemeyeceği bir şey öğretti. Gezmek işten bir mola değil, işin ta kendisi: araç değişir, içgüdü hep aynı kalır, git ve kendin gör.',
-        ctaKicker: 'Sırada', ctaTitle: 'Yollar arasında bir de atölyem var.', ctaBody: 'Yolda olmadığım zamanlarda genelde elimle bir şeyler üretiyorum, 3D baskılar, propslar ve fiziksel projeler.', ctaBtn: 'Neler ürettiğimi gör'
+        ctaKicker: 'Sırada', ctaTitle: 'Yollar arasında bir de atölyem var.', ctaBody: 'Yolda olmadığım zamanlarda bazen elimle bir şeyler üretiyorum, 3D baskılar, propslar ve fiziksel projeler.', ctaBtn: 'Neler ürettiğimi gör'
       },
       maker: {
         kicker: 'BÖLÜM 03, ATOMLAR', title: 'Üretici',
@@ -1540,7 +1542,7 @@ class Component extends DCLogic {
           { img: 'maker-p2', photo: './assets/scanning2-web.jpg', photoPos: '55% 42%', tag: 'TARA → BAS', title: 'Taranan Parçalar', body: 'Üretimi biten ya da kırılan araç parçalarını 3D tarayıp, tam oturacak şekilde yeniden üretiyoruz.' },
           { img: 'maker-p3', photo: './assets/ozelparcalar-web.jpg', photoPos: '48% 52%', tag: 'ÖZEL', title: 'Özel Ürünler', body: 'Tek seferlik özel ürün tasarımları, tam ölçüsüne göre yapılmış işlevsel, basılabilir nesneler.' }
         ],
-        ctaKicker: 'Sırada', ctaTitle: 'Fiziksel üretimin bir de dijital kardeşi var.', ctaBody: 'Aynı "kendim yaparım" içgüdüsü, reçine yerine yazılıma yönelmiş halde: AI destekli, hızlı ve çoğunlukla keyif için.', ctaBtn: 'Vibe coding\'e göz at'
+        ctaKicker: 'Sırada', ctaTitle: 'Elimle ürettiklerimin bir de dijital hali var.', ctaBody: 'Aynı "kendim yaparım" içgüdüsü, reçine yerine yazılıma yönelmiş halde: AI destekli, hızlı ve çoğunlukla keyif için.', ctaBtn: 'Vibe coding\'e göz at'
       },
       vibe: {
         kicker: 'BÖLÜM 04, KOD', title: 'Vibe Coding',
@@ -1576,11 +1578,10 @@ class Component extends DCLogic {
         intro: 'Yoldan, atölyeden ve terminalden notlar, yaşandıkça yazılan kısa kayıtlar.',
         backLabel: 'Tüm yazılar', readMore: 'Yazıyı oku', filterLabel: 'Filtrele', authorName: 'Oğulcan Muci', authorRole: 'Pazarlamacı · Yolcu · Üretici', authorBio: 'Growth Marketer ve ömür boyu yolcu; yoldan, atölyeden ve terminalden saha notları yazıyor.',
         entries: [
-          { id: 'hello', img: 'journal-hello', photo: './assets/blog1-web.jpg', photoPos: '72% 35%', photoAlt: 'Rocky, Philadelphia Sanat Müzesi merdivenlerinin tepesinde kollarını kaldırmış', date: 'MAY 2025', tag: 'NOTLAR', title: 'Merhaba, günlüğe hoş geldin', excerpt: 'Kısa bir merhaba: bu site neden gerçek bir günlüğe dönüşüyor ve burada seni ne bekliyor: pazarlama, 3D baskı, vibe coding ve yol hikayeleri.',
+          { id: 'hello', img: 'journal-hello', photo: './assets/blog1-web.jpg', photoPos: '72% 35%', photoAlt: 'Rocky, Philadelphia Sanat Müzesi merdivenlerinin tepesinde kollarını kaldırmış', photoCaption: 'Rocky, müze merdivenlerinin tepesinde, kollar havada.', date: 'MAY 2025', tag: 'NOTLAR', title: 'Merhaba, günlüğe hoş geldin', excerpt: 'Kısa bir merhaba: bu site neden gerçek bir günlüğe dönüşüyor ve burada seni ne bekliyor: pazarlama, 3D baskı, vibe coding ve yol hikayeleri.',
             hero: 'journal-hello-hero', readTime: '2 dk okuma',
             content: [
-              { type: 'p', text: 'Yukarıdaki fotoğraf Rocky\'den, müze merdivenlerinin tepesi, kollar havada. Yeni bir sayfa açarken biraz sembolik bir kare istedim, o da bu oldu.' },
-              { type: 'p', text: 'Merhaba, ben Muci. Aslen İstanbulluyum, şu an Rotterdam\'da yaşıyorum; kendimi bir reklam panelinin başında da, motosikletin üzerinde de, 3D yazıcının karşısında da aynı derecede rahat hissediyorum.' },
+              { type: 'p', text: 'Merhaba, ben Muci. Aslen İstanbulluyum, şu an Rotterdam\'da yaşıyorum. Growth marketer olarak çalışıyorum, bir yandan da motosiklet ve 3D baskıyla uğraşmayı seviyorum.' },
               { type: 'p', text: 'Bu siteyi gerçek bir günlüğe dönüştürüyorum. Durağan bir portföy olmaktan çıkıp, ne inşa ettiğimin, neyi bozup neyi öğrendiğimin düzenli bir kaydı olacak.' },
               { type: 'p', text: 'Burada karşına çıkacak dört ana başlık var:' },
               { type: 'list', items: ['Pazarlama: kampanyalar, sistemler ve bir ajans yürütürken öğrendiğim zor ama değerli dersler', '3D baskı: baskılar, prototipler ve anlatmaya değer projeler', 'Vibe coding: yapay zekayla hızlıca yazılım üretmek, çoğunlukla keyif için, bazen de müşteriler için', 'Ve yol hikayeleri: sürüşler, sapmalar, arada bir sınır geçişi'] },
